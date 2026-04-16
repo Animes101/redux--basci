@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { useApppSelector } from "../redux/fetures/middlewere/hooks";
+import { useAppDispatch, useApppSelector } from "../redux/fetures/middlewere/hooks";
+import { addTask, selectTask } from "../redux/fetures/task/task.slice";
 
 const Home = () => {
   const [title, setTitle] = useState("");
@@ -7,7 +8,9 @@ const Home = () => {
 
 
 
-  const tasks = useApppSelector((state) => state.totoTask.tasks);
+  const tasks = useApppSelector(selectTask);
+  const dispatch=useAppDispatch();
+
 
   // ✅ Add Task
   const handleAddTask = () => {
@@ -21,9 +24,8 @@ const Home = () => {
       createDate: new Date().toISOString().split("T")[0],
     };
 
-    console.log(newTask)
 
- 
+    dispatch(addTask(newTask));
 
     setTitle("");
     setDes("");

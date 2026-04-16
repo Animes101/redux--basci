@@ -1,4 +1,5 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
+import type { RootState } from "../../store";
 
 type Task = {
   id: string;
@@ -21,34 +22,7 @@ tasks: [
     isCompleted: false,
     createDate: '2026-04-10'
   },
-  {
-    id: '02',
-    title: 'Build Todo App',
-    des: 'Create a task management app using Redux Toolkit',
-    isCompleted: true,
-    createDate: '2026-04-11'
-  },
-  {
-    id: '03',
-    title: 'Practice JavaScript',
-    des: 'Solve problems on arrays and objects',
-    isCompleted: false,
-    createDate: '2026-04-12'
-  },
-  {
-    id: '04',
-    title: 'Learn Backend',
-    des: 'Start Node.js and Express basics',
-    isCompleted: false,
-    createDate: '2026-04-13'
-  },
-  {
-    id: '05',
-    title: 'Setup MongoDB',
-    des: 'Connect database with backend project',
-    isCompleted: true,
-    createDate: '2026-04-14'
-  }
+
 ]
 };
 
@@ -57,9 +31,22 @@ const taskSlice = createSlice({
   initialState,
   reducers: {
 
+    addTask:(state , action:PayloadAction<Task>)=>{
+
+        state.tasks.push(action.payload)
+
+
+    }
+
     
   },
 });
+
+export const selectTask= (state:RootState)=>{
+    return state.totoTask.tasks
+}
+
+export const {addTask}=taskSlice.actions
 
 
 export default taskSlice.reducer;
