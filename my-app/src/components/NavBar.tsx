@@ -20,12 +20,12 @@ const NavBar = () => {
         </NavLink>
 
         <NavLink
-          to="/about"
+          to="/user"
           className={({ isActive }) =>
             isActive ? "text-blue-400 font-bold" : "hover:text-blue-400"
           }
         >
-          About
+          User
         </NavLink>
 
       </div>

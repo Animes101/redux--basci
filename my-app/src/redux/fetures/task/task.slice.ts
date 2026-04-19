@@ -7,6 +7,8 @@ type Task = {
   des: string;
   isCompleted: boolean;
   createDate: string;
+  assignedTo: string;   // ← user id
+  priority: "low" | "medium" | "high";
 };
 
 type InitialState = {
@@ -14,46 +16,39 @@ type InitialState = {
 };
 
 const initialState: InitialState = {
-tasks: []
+  tasks: [],
 };
 
 const taskSlice = createSlice({
   name: "task",
   initialState,
   reducers: {
-
-    addTask:(state , action:PayloadAction<Task>)=>{
-
-        state.tasks.push(action.payload)
-
-
+    addTask: (state, action: PayloadAction<Task>) => {
+      state.tasks.push(action.payload);
     },
-    isComplated:(state, action)=>{
-
-       const task = state.tasks.find(t => t.id === action.payload);
-      if (task) {
-        task.isCompleted = !task.isCompleted;
-      }
-
-
+    isComplated: (state, action: PayloadAction<string>) => {
+      const task = state.tasks.find((t) => t.id === action.payload);
+      if (task) task.isCompleted = !task.isCompleted;
     },
-    deleteTask:(state, action)=>{
-
-      state.tasks = state.tasks.filter(
-        task => task.id !== action.payload
-      )
-
-    }
-   
-    
+    deleteTask: (state, action: PayloadAction<string>) => {
+      state.tasks = state.tasks.filter((t) => t.id !== action.payload);
+    },
+    assignTask: (
+      state,
+      action: PayloadAction<{ taskId: string; userId: string }>
+    ) => {
+      const task = state.tasks.find((t) => t.id === action.payload.taskId);
+      if (task) task.assignedTo = action.payload.userId;
+    },
+    reorderTasks: (state, action: PayloadAction<Task[]>) => {
+      state.tasks = action.payload;
+    },
   },
 });
 
-export const selectTask= (state:RootState)=>{
-    return state.totoTask.tasks
-}
+export const selectTask = (state: RootState) => state.totoTask.tasks;
 
-export const {addTask, isComplated,deleteTask}=taskSlice.actions
-
+export const { addTask, isComplated, deleteTask, assignTask, reorderTasks } =
+  taskSlice.actions;
 
 export default taskSlice.reducer;

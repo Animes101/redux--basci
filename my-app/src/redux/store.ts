@@ -1,11 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit'
 import todoSlice from './fetures/task/task.slice'
+import userSlice from './fetures/users/user.slice'
 
 
 export const store = configureStore({
   reducer: {
 
-    totoTask:todoSlice
+    totoTask:todoSlice,
+    user:userSlice
   },
 })
 
