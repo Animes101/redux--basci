@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useAppDispatch, useApppSelector } from "../redux/fetures/middlewere/hooks";
-import { addTask, selectTask } from "../redux/fetures/task/task.slice";
+import { addTask, deleteTask, isComplated, selectTask } from "../redux/fetures/task/task.slice";
 
 const Home = () => {
   const [title, setTitle] = useState("");
@@ -34,7 +34,7 @@ const Home = () => {
   // ✅ Toggle Complete / Uncomplete
   const handleToggle = (id: string) => {
 
-    console.log(id)
+    dispatch(isComplated(id))
 
   
   };
@@ -42,7 +42,10 @@ const Home = () => {
   // ✅ Delete Task
   const handleDelete = (id: string) => {
 
-    console.log(id)
+    dispatch(deleteTask(id))
+
+
+
 
     
     

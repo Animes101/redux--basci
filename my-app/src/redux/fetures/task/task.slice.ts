@@ -14,16 +14,7 @@ type InitialState = {
 };
 
 const initialState: InitialState = {
-tasks: [
-  {
-    id: '01',
-    title: 'Learn React Basics',
-    des: 'Understand components, props, and state',
-    isCompleted: false,
-    createDate: '2026-04-10'
-  },
-
-]
+tasks: []
 };
 
 const taskSlice = createSlice({
@@ -36,8 +27,24 @@ const taskSlice = createSlice({
         state.tasks.push(action.payload)
 
 
-    }
+    },
+    isComplated:(state, action)=>{
 
+       const task = state.tasks.find(t => t.id === action.payload);
+      if (task) {
+        task.isCompleted = !task.isCompleted;
+      }
+
+
+    },
+    deleteTask:(state, action)=>{
+
+      state.tasks = state.tasks.filter(
+        task => task.id !== action.payload
+      )
+
+    }
+   
     
   },
 });
@@ -46,7 +53,7 @@ export const selectTask= (state:RootState)=>{
     return state.totoTask.tasks
 }
 
-export const {addTask}=taskSlice.actions
+export const {addTask, isComplated,deleteTask}=taskSlice.actions
 
 
 export default taskSlice.reducer;
