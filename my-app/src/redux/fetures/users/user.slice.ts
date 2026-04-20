@@ -53,3 +53,4 @@ export const { addUser, toggleActive, deleteUser, updateRole } =
   userSlice.actions;
 
 export default userSlice.reducer;
+

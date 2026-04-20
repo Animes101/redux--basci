@@ -1,5 +1,6 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import type { RootState } from "../../store";
+import { deleteUser } from "../users/user.slice";
 
 type Task = {
   id: string;
@@ -44,6 +45,13 @@ const taskSlice = createSlice({
       state.tasks = action.payload;
     },
   },
+  extraReducers:(builder)=>{
+    builder.addCase(deleteUser, (state, action)=>{
+
+      state.tasks.forEach(task=> task.assignedTo == action.payload ? task.assignedTo='not assign' : task)
+
+    })
+  }
 });
 
 export const selectTask = (state: RootState) => state.totoTask.tasks;

@@ -27,6 +27,14 @@ const NavBar = () => {
         >
           User
         </NavLink>
+        <NavLink
+          to="/comment"
+          className={({ isActive }) =>
+            isActive ? "text-blue-400 font-bold" : "hover:text-blue-400"
+          }
+        >
+          Comment
+        </NavLink>
 
       </div>
     </nav>
